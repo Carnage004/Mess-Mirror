@@ -1,0 +1,55 @@
+import React, { useState } from "react";
+
+export default function LoginScreen({ onLogin }) {
+  const [id, setId] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("Student");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // In a real app, validate or send to backend
+    onLogin({ id, name, role });
+  }
+
+  return (
+    <section className="bg-white rounded-2xl shadow p-6" aria-label="Login Screen">
+      <h3 className="text-lg font-medium">Welcome back</h3>
+      <p className="text-sm text-gray-500">Sign in to view mess menus and leave feedback</p>
+      <form className="mt-4 space-y-3" onSubmit={handleSubmit}>
+        <input
+          className="w-full border rounded-lg px-3 py-2"
+          placeholder="College/Google ID"
+          value={id}
+          onChange={e => setId(e.target.value)}
+          aria-label="College or Google ID"
+        />
+        <div className="flex gap-2">
+          <input
+            className="flex-1 border rounded-lg px-3 py-2"
+            placeholder="Name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            aria-label="Name"
+          />
+          <select
+            className="w-40 border rounded-lg px-3 py-2"
+            value={role}
+            onChange={e => setRole(e.target.value)}
+            aria-label="Role"
+          >
+            <option>Student</option>
+            <option>Admin</option>
+          </select>
+        </div>
+        <button className="w-full bg-amber-400 text-white py-2 rounded-lg font-medium" type="submit">
+          Sign in
+        </button>
+        <div className="text-center text-xs text-gray-500">Or continue with</div>
+        <div className="flex gap-3 justify-center">
+          <button className="border rounded-lg px-4 py-2" type="button" aria-label="Sign in with Google">Google</button>
+          <button className="border rounded-lg px-4 py-2" type="button" aria-label="Sign in with College SSO">College SSO</button>
+        </div>
+      </form>
+    </section>
+  );
+}
